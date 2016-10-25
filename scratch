@@ -1,0 +1,71 @@
+ISO-10303-21/STEP-file parser.
+
+Generate data types + a parser for the described format:
+
+'#' node-number '=' ws+ entity-name '(' data-list ');' nl
+
+line -> ref_object
+
+with graph = map ref ref_object
+
+---
+
+then, we have tranformers that go graph -> graph, made up of:
+- recursion schemes + actions
+- filter/map/create/etc pipelines
+
+then, we have a graph -> serialisable IR phase.
+
+Then serialisable IR -> serialisable IR transformers.
+
+Finally an IR -> string printer.
+
+
+EXPRESS parser/template haskell:
+- Generate ADTs, print and read functions from EXPRESS data, using STEP-file parser.
+- 
+
+Use those to get in IFC data to GADTs or whatever.
+
+Use XML construction combinators on the GADT to write output.
+
+Boom.
+
+Labels.
+Staged computation.
+Binary parsing/parsing on data structures.
+
+
+---
+
+
+property: a row - {name: Type}
+
+schema:
+  node name
+  node inclusions
+  node properties
+
+=>
+  name, list property
+
+instance:
+  number, list either property ref
+
+'IFCSPACE' ~ args(&IFCSpace) ~ nl
+'IFCROOT' ~ args(&IFCRoot) ~ nl
+
+args = '(' ~ <
+    &IFCSpace ⇒ 
+    &IFCRoot ⇒ 
+  > ~ ');'
+
+y = inclusions
+x = properties
+&name: <x|y>
+
+case x: &IFCSpace ⇒ 
+
+{Attribute = value}
+
+filter x [#Attr1, #Attr2, #Attr3]
